@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
-from assistant_budget.db.database import Base, engine, SessionLocal
+from assistant_budget.src.database import Base, engine, SessionLocal
 from assistant_budget.src import models
 
 app = FastAPI()

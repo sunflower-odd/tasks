@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Float, Boolean, Date
 from sqlalchemy import text
-from assistant_budget.db.database import Base
+from assistant_budget.src.database import Base
 
 class Family(Base):
     __tablename__ = "families"

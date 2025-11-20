@@ -1,10 +1,9 @@
 import sys
 import os
 from logging.config import fileConfig
-from sqlalchemy import create_engine, pool
+from sqlalchemy import create_engine
 from alembic import context
-from assistant_budget.db.database import DATABASE_URL, Base
-from assistant_budget.src.models import User, Category, Expense, ExpenseParticipant, Family
+from assistant_budget.src.database import DATABASE_URL, Base
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 

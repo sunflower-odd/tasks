@@ -1,23 +1,18 @@
-from fastapi import FastAPI, Depends
-from sqlalchemy.orm import Session
-from assistant_budget.src.database import Base, engine, SessionLocal
-from assistant_budget.src import models
+from fastapi import FastAPI
+from assistant_budget.src.api.v1 import (
+    category_api,
+    user_api,
+    family_api,
+    expense_api,
+    expense_participant_api,
+    misc
+)
 
-app = FastAPI()
+app = FastAPI(title="Assistant Budget API")
 
-# создаём все таблицы, если их ещё нет
-Base.metadata.create_all(bind=engine)
-
-# dependency для работы с БД
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-
-@app.get("/")
-def read_root(db: Session = Depends(get_db)):
-    categories = db.query(models.Category).all()
-    return {"categories": [c.name for c in categories]}
+app.include_router(category_api.router)
+app.include_router(user_api.router)
+app.include_router(family_api.router)
+app.include_router(expense_api.router)
+app.include_router(expense_participant_api.router)
+app.include_router(misc.router)

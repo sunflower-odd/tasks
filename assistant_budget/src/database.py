@@ -7,7 +7,7 @@ from typing import AsyncGenerator
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import DeclarativeBase
-from configs import settings
+from assistant_budget.src.configs.app import settings
 
 
 DATABASE_URL = "postgresql+asyncpg://user:password@localhost:5432/postgres" #"postgresql+psycopg2://postgres:pass@localhost:5432/postgres"

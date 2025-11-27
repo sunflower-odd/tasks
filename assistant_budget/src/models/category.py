@@ -1,40 +1,44 @@
-from sqlalchemy import ForeignKey, String, Float, Boolean, Date, text
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
 from typing import Any
-from assistant_budget.src.models.model_base import Base
-from assistant_budget.src.models.model_base import BaseModelMixin
 from sqlalchemy.ext.asyncio import create_async_engine
 import asyncio
+
+from assistant_budget.src.models.model_base import Base, BaseModelMixin
+
 
 class Category(Base, BaseModelMixin):
     __tablename__ = "expenses_categories"
 
-    name: Mapped[str] = mapped_column(String, unique=True, nullable=False)
-    desc: Mapped[str] = mapped_column(String,  nullable=False)
+    name = Column(String, unique=True, nullable=False)
+    description = Column(String, nullable=True)  # можно nullable=True, если описание опционально
 
+    # Связь с расходами
     expenses = relationship("Expense", back_populates="category")
+
     def __repr__(self) -> str:
-        return f"uuid - {self.uuid}, name - {self.name}, desc - {self.desc}"
+        return f"Category(uuid={self.uuid}, name={self.name}, desc={self.description})"
 
     def to_dict(self) -> dict[str, Any]:
         return {
             "uuid": self.uuid,
             "name": self.name,
-            "desc": self.desc,
-            "created_at": self.created_at,
-            "updated_at": self.updated_at,
+            "description": self.description,
         }
 
 
+# --- Асинхронное создание таблиц ---
 async def create_db():
     engine = create_async_engine(
-        "postgresql+asyncpg://user:password@localhost:5432/postgres"
+        "postgresql+asyncpg://user:password@localhost:5432/postgres",
+        echo=True,  # видеть SQL запросы
     )
 
     async with engine.begin() as connection:
-        pass
+        # Раскомментировать для сброса и создания таблиц заново
         # await connection.run_sync(Base.metadata.drop_all)
         # await connection.run_sync(Base.metadata.create_all)
+        pass
 
 
 if __name__ == "__main__":

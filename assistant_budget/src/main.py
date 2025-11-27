@@ -7,8 +7,12 @@ from assistant_budget.src.api.v1 import (
     expense_participant_api,
     misc
 )
+from assistant_budget.src.configs.app import settings
 
 app = FastAPI(title="Assistant Budget API")
+@app.get("/")
+async def root():
+    return {"message": f"Welcome to Assistant Budget API!"}
 
 app.include_router(category_api.router)
 app.include_router(user_api.router)

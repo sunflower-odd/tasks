@@ -31,15 +31,17 @@ def clean_data(file_name):
 
     lines_list = []
     for line in lines:
-        line = line.lower()
-        line = re.sub(r"[^a-zа-я0-9\s]", " ", line)
-        line = re.sub(r"\s+", " ", line).strip()
-        line = re.sub(r"(\d+)\s*(gb|гб)", r"\1 gb", line)
+        if config.USE_PREPROCESSING:
+            line = line.lower()
+            line = re.sub(r"[^a-zа-я0-9\s]", " ", line)
+            line = re.sub(r"\s+", " ", line).strip()
+            line = re.sub(r"(\d+)\s*(gb|гб)", r"\1 gb", line)
 
-        line = line.split()
-        line = [config.COLOR_MAP.get(word, word) for word in line]
-        line = [t for t in line if t not in config.WORDS_TO_EXCLUDE]
-
+            line = line.split()
+            line = [config.COLOR_MAP.get(word, word) for word in line]
+            line = [t for t in line if t not in config.WORDS_TO_EXCLUDE]
+        else:
+            line = line.split()
         lines_list.append(line)
 
     lines_dict = {line[0]: line[1:] for line in lines_list if line}
@@ -76,9 +78,7 @@ def find_similar(query, search_index, threshold=config.SIMILARITY_THRESHOLD):
 
     return results
 
-
-
-if __name__ == '__main__':
+def main():
     cleaned_dict_catalog = clean_data('catalog.txt')
     catalog_data = tokenize(cleaned_dict_catalog)
 
@@ -95,6 +95,5 @@ if __name__ == '__main__':
     with open("duplicates.json", "w", encoding="utf-8") as f:
         json.dump(final_results, f, ensure_ascii=False, indent=4)
 
-
-
-
+if __name__ == '__main__':
+    main()

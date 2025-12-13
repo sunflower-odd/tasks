@@ -13,15 +13,36 @@ def func():
                 segments.append(item)
 
     segments.sort(key=lambda x: x[0])
+    print(segments)
     num = 1
-    for i in range(len(segments)-1):
-        for j in range(len(segments)-1):
-            if segments[j+1][0]>segments[i][1]:
-                print(f'segments[j+1][0]: {segments[j+1][0]}, segments[i][1]: {segments[i][1]} ')
-                num=num+1
-                break
+    segments.sort(key=lambda x: (x[0], x[1]))
 
-    print(num)
+    final_list = []
+
+    while segments:
+        base = segments[0]
+        group = [base]
+        segments.pop(0)
+
+        i = 0
+        while i < len(segments):
+            print(f'segments[i][0] {segments[i]}, base[1]: {base} ')
+            if segments[i][0] <= base[1]:
+                for group_segment in group:
+                    if group_segment[0]<=base[1]:
+                        group.append(segments[i])
+                        segments.pop(i)
+            else:
+                i += 1
+
+        final_list.append(group)
+        segments = [item for item in segments if item not in group]
+
+
+    print(final_list)
+    final_list = [sub for sub in final_list if sub]
+    print(final_list)
+    print(len(final_list))
 
 
 

@@ -9,10 +9,12 @@ dependencies = [
     "asyncpg>=0.30.0",
     "dynaconf>=3.2.12",
     "fastapi>=0.121.1",
+    "fuzzywuzzy>=0.18.0",
     "greenlet>=3.2.4",
     "psycopg2-binary>=2.9.11",
     "psycopg[binary]>=3.2.12",
     "pydantic[email]>=2.12.4",
+    "python-levenshtein>=0.27.3",
     "sqlalchemy>=2.0.44",
     "uvicorn>=0.38.0",
 ]

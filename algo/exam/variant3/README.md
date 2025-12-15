@@ -1,4 +1,4 @@
-# Duplicate Detection Tool for Product Catalogs
+# VARIANT 3. Duplicate Detection Tool for Product Catalogs
 
 ## Описание
 

@@ -1,5 +1,7 @@
 SIMILARITY_THRESHOLD = 0.7
 USE_PREPROCESSING = True
+CATALOG_FILE_NAME = 'catalog.txt'
+NEW_ITEMS_FILE_NAME = 'new_items.txt'
 WORDS_TO_EXCLUDE = ['смартфон', 'телефон', 'смарт', 'планшет','робот', 'пылесос', "новинка", "оригинал",
     "new", "original", "mobile", 'robot', 'vacuum', 'cleaner', 'watch', 'часы']
 

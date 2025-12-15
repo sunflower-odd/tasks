@@ -120,7 +120,7 @@ def find_similar(query, search_index, threshold=config.SIMILARITY_THRESHOLD):
     results = []
     for item_id, text in search_index.items():
         levenshtein_dist = _levenshtein_distance(query, text)
-        similarity = 1 - levenshtein_dist / max(len(query), len(text))
+        similarity = round(1 - levenshtein_dist / max(len(query), len(text)), 2)
         if similarity >= threshold:
             results.append({"catalog_id": item_id, "similarity_score": similarity})
 
